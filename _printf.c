@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "main.h"
-
+#include <unistd.h>
 /**
  * _putchar - prints characters
  * _printf - prints a string in a formatted way
@@ -13,11 +13,13 @@
 
 int _putchar(char c)
 {
-    return write(1, &c, 1);
+   return write(1, &c, 1);
+
 }
 
 int _printf(const char *format, ...)
 {
+  int i, divisor, digits, digit;
   int printed_chars = 0;
   va_list arg_list;
   va_start(arg_list, format);
@@ -36,16 +38,16 @@ int _printf(const char *format, ...)
           printed_chars++;
           value = -value;
         }
-        int divisor = 1;
-        int digits = 1;
+        divisor = 1;
+        digits = 1;
         while (value / divisor >= 10)
         {
           divisor *= 10;
           digits++;
         }
-        for (int i = 0; i < digits; i++)
+        for (i = 0; i < digits; i++)
         {
-          int digit = value / divisor;
+          digit = value / divisor;
           _putchar('0' + digit);
           printed_chars++;
           value %= divisor;
