@@ -11,7 +11,7 @@ int _printf(const char *format, ...)
 {
 	int i;
 	va_list ap;
-	int c;
+	int c;/*stuff*/
 	char spec;
 
 	va_start(ap, format);
