@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
   int printed_chars = 0;
   va_list arg_list;
   va_start(arg_list, format);
-/*whie liip*/
+
   while (*format)
   {
     if (*format == '%')
