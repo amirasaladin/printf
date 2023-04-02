@@ -1,9 +1,17 @@
 #ifndef MAIN_H
 #define MAIN_H
-int _strlen(const char *s);
-int _putchar(char c);
-void spec_d_i(int value);
-void spec_s(char *arg);
-void spec_c(int arg);
+
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int (*check_spec(const char *format))(va_list);
 int _printf(const char *format, ...);
+int print_char(va_list);
+int print_str(va_list);
+int print_pcent(va_list);
+int print_int(va_list);
+int print_deci(va_list);
+
 #endif

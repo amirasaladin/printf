@@ -1,39 +1,55 @@
-#include "main.h"
 #include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "main.h"
+
 /**
- * _printf - function similar to C printf
- * @format: is a character string. The format string is composed
- * of zero or more directives.
- * Return: int.
-*/
+ * _printf - prints a string in a formatted way
+ * @format: string to print (char *)
+ * @...: variadic parameters (unknown)
+ *
+ * Return: number of characters printed
+ */
+
 
 int _printf(const char *format, ...)
 {
-	int i;
-	va_list ap;
-	int c;
-	char spec;
+	int (*func)(va_list);
+	va_list arg;
+	int len = 0;
 
-	va_start(ap, format);
-	for (i = 0; i < _strlen(format); i++)
+	va_start(arg, format);
+
+	while (*format != '\0')
 	{
-		c = format[i];
-		if (c != '%')
+		if (*format == '%')
 		{
-			_putchar(format[i]);
+			format++;
+			func = check_spec(format);
+
+			if (func == NULL)
+			{
+				char c = *format;
+
+				write(1, &c, 1);
+				len++;
+			}
+			else
+			{
+				len = len + func(arg);
+			}
 		}
 		else
 		{
-			spec = format[i + 1];
-			if (spec == 'c')
-				spec_c(va_arg(ap, int));
-			else if (spec == 's')
-				spec_s(va_arg(ap, char *));
-			else if (spec == 'd' || spec == 'i')
-				spec_d_i(va_arg(ap, int));
-			i = i + 1;
+			char c = *format;
+
+			write(1, &c, 1);
+			len++;
 		}
+
+		format++;
 	}
-	va_end(ap);
-	return (0);
+
+	va_end(arg);
+	return (len);
 }
